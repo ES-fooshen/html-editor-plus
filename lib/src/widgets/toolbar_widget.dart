@@ -1806,7 +1806,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                                 padding: const EdgeInsets.only(left: 5, right: 5),
                                                 elevation: 0.0),
                                             onPressed: () async {
-                                              result = await FilePicker.platform.pickFiles(
+                                              result = await FilePicker.pickFiles(
                                                 type: FileType.image,
                                                 withData: true,
                                                 allowedExtensions:
@@ -1947,7 +1947,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                               padding: const EdgeInsets.only(left: 5, right: 5),
                                               elevation: 0.0),
                                           onPressed: () async {
-                                            result = await FilePicker.platform.pickFiles(
+                                            result = await FilePicker.pickFiles(
                                               type: FileType.audio,
                                               withData: true,
                                               allowedExtensions:
@@ -2084,7 +2084,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                               padding: const EdgeInsets.only(left: 5, right: 5),
                                               elevation: 0.0),
                                           onPressed: () async {
-                                            result = await FilePicker.platform.pickFiles(
+                                            result = await FilePicker.pickFiles(
                                               type: FileType.video,
                                               withData: true,
                                               allowedExtensions:
@@ -2221,7 +2221,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                               padding: const EdgeInsets.only(left: 5, right: 5),
                                               elevation: 0.0),
                                           onPressed: () async {
-                                            result = await FilePicker.platform.pickFiles(
+                                            result = await FilePicker.pickFiles(
                                               type: FileType.any,
                                               withData: true,
                                               allowedExtensions:
