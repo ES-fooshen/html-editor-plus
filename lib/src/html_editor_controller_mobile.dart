@@ -46,7 +46,9 @@ class HtmlEditorController extends unsupported.HtmlEditorController {
             text.isEmpty ||
             text == '<p></p>' ||
             text == '<p><br></p>' ||
-            text == '<p><br/></p>')) text = '';
+            text == '<p><br/></p>')) {
+      text = '';
+    }
     return text ?? '';
   }
 

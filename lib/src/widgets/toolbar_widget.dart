@@ -468,7 +468,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                   BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
                       border: Border.all(
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12))),
+                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.12))),
           child: CustomDropdownButtonHideUnderline(
             child: CustomDropdownButton<String>(
               elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -580,7 +580,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,
                         border: Border.all(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12))),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.12))),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<String>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -650,7 +650,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,
                         border: Border.all(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12))),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.12))),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<double>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -769,7 +769,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,
                         border: Border.all(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12))),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.12))),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<String>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -985,7 +985,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     true;
                 if (proceed) {
                   widget.controller.execCommand('foreColor',
-                      argument: (Colors.black.value & 0xFFFFFF)
+                      argument: (Colors.black.toARGB32() & 0xFFFFFF)
                           .toRadixString(16)
                           .padLeft(6, '0')
                           .toUpperCase());
@@ -998,7 +998,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     true;
                 if (proceed) {
                   widget.controller.execCommand('hiliteColor',
-                      argument: (Colors.yellow.value & 0xFFFFFF)
+                      argument: (Colors.yellow.toARGB32() & 0xFFFFFF)
                           .toRadixString(16)
                           .padLeft(6, '0')
                           .toUpperCase());
@@ -1035,7 +1035,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                               newColor = color;
                             },
                             title: Text('Choose a Color',
-                                style: Theme.of(context).textTheme.headlineLarge),
+                                style: Theme.of(context).textTheme.titleLarge),
                             width: 40,
                             height: 40,
                             spacing: 0,
@@ -1088,7 +1088,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                               onPressed: () {
                                 if (t.getIcons()[index].icon == Icons.format_color_text) {
                                   widget.controller.execCommand('foreColor',
-                                      argument: (newColor.value & 0xFFFFFF)
+                                      argument: (newColor.toARGB32() & 0xFFFFFF)
                                           .toRadixString(16)
                                           .padLeft(6, '0')
                                           .toUpperCase());
@@ -1098,7 +1098,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                 }
                                 if (t.getIcons()[index].icon == Icons.format_color_fill) {
                                   widget.controller.execCommand('hiliteColor',
-                                      argument: (newColor.value & 0xFFFFFF)
+                                      argument: (newColor.toARGB32() & 0xFFFFFF)
                                           .toRadixString(16)
                                           .padLeft(6, '0')
                                           .toUpperCase());
@@ -1184,7 +1184,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,
                         border: Border.all(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12))),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.12))),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<String>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -1389,7 +1389,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,
                         border: Border.all(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12))),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.12))),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<double>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -1530,7 +1530,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                     BoxDecoration(
                         color: Theme.of(context).scaffoldBackgroundColor,
                         border: Border.all(
-                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.12))),
+                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.12))),
             child: CustomDropdownButtonHideUnderline(
               child: CustomDropdownButton<String>(
                 elevation: widget.htmlToolbarOptions.dropdownElevation,
@@ -1712,7 +1712,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                         ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  Theme.of(context).dialogBackgroundColor,
+                                                  Theme.of(context).dialogTheme.backgroundColor,
                                               padding: const EdgeInsets.only(left: 5, right: 5),
                                               elevation: 0.0),
                                           onPressed: () {
@@ -1802,7 +1802,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                           prefixIcon: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor:
-                                                    Theme.of(context).dialogBackgroundColor,
+                                                    Theme.of(context).dialogTheme.backgroundColor,
                                                 padding: const EdgeInsets.only(left: 5, right: 5),
                                                 elevation: 0.0),
                                             onPressed: () async {
@@ -1943,7 +1943,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                         prefixIcon: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  Theme.of(context).dialogBackgroundColor,
+                                                  Theme.of(context).dialogTheme.backgroundColor,
                                               padding: const EdgeInsets.only(left: 5, right: 5),
                                               elevation: 0.0),
                                           onPressed: () async {
@@ -2080,7 +2080,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                         prefixIcon: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  Theme.of(context).dialogBackgroundColor,
+                                                  Theme.of(context).dialogTheme.backgroundColor,
                                               padding: const EdgeInsets.only(left: 5, right: 5),
                                               elevation: 0.0),
                                           onPressed: () async {
@@ -2217,7 +2217,7 @@ class ToolbarWidgetState extends State<ToolbarWidget> {
                                         prefixIcon: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  Theme.of(context).dialogBackgroundColor,
+                                                  Theme.of(context).dialogTheme.backgroundColor,
                                               padding: const EdgeInsets.only(left: 5, right: 5),
                                               elevation: 0.0),
                                           onPressed: () async {

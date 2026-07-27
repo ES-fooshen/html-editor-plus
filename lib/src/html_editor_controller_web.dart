@@ -5,7 +5,6 @@ import 'dart:html' as html;
 import 'package:flutter/foundation.dart';
 import 'package:html_editor_plus/html_editor.dart';
 import 'package:html_editor_plus/src/html_editor_controller_unsupported.dart' as unsupported;
-import 'package:meta/meta.dart';
 
 /// Controller for web
 class HtmlEditorController extends unsupported.HtmlEditorController {
