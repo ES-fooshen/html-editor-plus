@@ -433,12 +433,17 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                             window.flutter_inappwebview.callHandler('FormatSettings', message);
                           }
                       """);
+                      // The page can close between these calls. Its WebView is then gone, and the next
+                      // call would throw MissingPluginException.
+                      if (!mounted) return;
                       await controller.evaluateJavascript(
                           source:
                               "document.onselectionchange = onSelectionChange; console.log('done');");
+                      if (!mounted) return;
                       await controller.evaluateJavascript(
                           source:
                               "document.getElementsByClassName('note-editable')[0].setAttribute('inputmode', '${widget.htmlEditorOptions.inputType.name}');");
+                      if (!mounted) return;
                       if ((Theme.of(context).brightness == Brightness.dark ||
                               widget.htmlEditorOptions.darkMode == true) &&
                           widget.htmlEditorOptions.darkMode != false) {
@@ -447,6 +452,7 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                             '<link href=\"${(widget.htmlEditorOptions.filePath != null ? "file:///android_asset/flutter_assets/packages/html_editor_plus/assets/" : "") + "summernote-lite-dark.css"}\" rel=\"stylesheet\">';
                         await controller.evaluateJavascript(
                             source: "\$('head').append('$darkCSS');");
+                        if (!mounted) return;
                       }
                       //set the text once the editor is loaded
                       if (widget.htmlEditorOptions.initialText != null) {
@@ -470,6 +476,7 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                         await controller.evaluateJavascript(
                             source:
                                 "var height = document.body.scrollHeight; window.flutter_inappwebview.callHandler('setHeight', height);");
+                        if (!mounted) return;
                       }
                       widget.controller.editorController!.addJavaScriptHandler(
                           handlerName: 'totalChars',
