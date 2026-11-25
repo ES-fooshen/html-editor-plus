@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 import '../core/editor_event.dart';
 import '../core/editor_file.dart';
@@ -118,14 +117,10 @@ class _HtmlEditorFieldState extends State<HtmlEditorField> {
   late final HtmlEditorController _controller;
   late final StreamSubscription<EditorEvent> _eventsSubscription;
 
-  late final StreamSubscription<bool> _keyboardVisibilitySubscription;
   late final InAppWebViewSettings _initialOptions;
 
-  InAppWebViewController? _webviewController;
   String get _filePath => _adapter.filePath;
   String get _viewId => _adapter.key;
-
-  Stream<bool> get _keyboardVisibilityStream => KeyboardVisibilityController().onChange;
 
   @override
   void initState() {
@@ -163,9 +158,6 @@ class _HtmlEditorFieldState extends State<HtmlEditorField> {
           useShouldOverrideUrlLoading: true,
           loadWithOverviewMode: true,
         );
-    _keyboardVisibilitySubscription = _keyboardVisibilityStream.listen(
-      _onKeyboardVisibilityChanged,
-    );
     _controller.addListener(_controllerListener);
   }
 
@@ -173,7 +165,6 @@ class _HtmlEditorFieldState extends State<HtmlEditorField> {
   void dispose() {
     _eventsSubscription.cancel();
     _controller.removeListener(_controllerListener);
-    _keyboardVisibilitySubscription.cancel();
     _adapter.dispose();
     if (widget.controller == null) _controller.dispose();
     super.dispose();
@@ -217,17 +208,5 @@ class _HtmlEditorFieldState extends State<HtmlEditorField> {
     if (_controller.html != _adapter.currentValue.html) {
       _adapter.handleEvent(EditorSetHtml(payload: _controller.processedHtml));
     }
-  }
-
-  /// Function which clears the focus from the editor once the keyboard is hidden.
-  ///
-  /// There are some issues with the keyboard on mobile platforms, so this is a workaround.
-  /// Usually MediaQuery.of(context).viewInsets gets updated if the keyboard is opened/closed,
-  /// but this doesn't seem to be the case with the editor. Don't know if is from InAppWebView or
-  /// the platform view itself.
-  /// More so, if the keyboard is closed by tapping on the back button, the focus is not cleared.
-  /// So we need to manually clear the focus.
-  void _onKeyboardVisibilityChanged(bool visible) {
-    if (!visible) _webviewController?.clearFocus();
   }
 }

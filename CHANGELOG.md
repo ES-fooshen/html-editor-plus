@@ -1,3 +1,10 @@
+## [0.0.6] = 2026-07-27
+* Merged `html_editor_enhanced` 2.7.1 (`5847a389`).
+* Updated dependencies and Flutter APIs for current stable Flutter releases.
+* Updated `file_picker` to 11.0.2 and migrated to its static API.
+* Added the current Web platform-view registry shim.
+* Preserved the Plus API and Web toolbar dropdown fix.
+
 ## [0.0.5] = 2024-07-09
 * Updated dependencies for Flutter 3.22.x
 * Fixed issues after dependencies update

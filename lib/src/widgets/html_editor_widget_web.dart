@@ -195,10 +195,10 @@ class _HtmlEditorWidgetWebState extends State<HtmlEditorWidget> {
     var userScripts = '';
     if (widget.htmlEditorOptions.webInitialScripts != null) {
       for (var element in widget.htmlEditorOptions.webInitialScripts!) {
-        userScripts = '''$userScripts
+        userScripts += '''
           if (data["type"].includes("${element.name}")) {
             ${element.script}
-          }'\n'
+          }
         ''';
       }
     }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:meta/meta.dart';
 
 import 'core/editor_event.dart';
 import 'core/editor_selection_state.dart';

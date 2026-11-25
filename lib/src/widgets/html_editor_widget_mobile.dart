@@ -10,7 +10,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:html_editor_plus/html_editor.dart'
     hide NavigationActionPolicy, UserScript, ContextMenu;
 import 'package:html_editor_plus/utils/utils.dart';
@@ -209,7 +208,10 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                         });
                         await setHeightJS();
                       }
-                      var visibleDecimal = await visibleStream.stream.first;
+                      var visibleDecimal = await visibleStream.stream.firstWhere(
+                        (_) => !visibleStream.isClosed,
+                        orElse: () => 0,
+                      );
                       var newHeight = widget.otherOptions.height;
                       if (visibleDecimal > 0.1) {
                         this.setState(() {
@@ -431,12 +433,17 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                             window.flutter_inappwebview.callHandler('FormatSettings', message);
                           }
                       """);
+                      // The page can close between these calls. Its WebView is then gone, and the next
+                      // call would throw MissingPluginException.
+                      if (!mounted) return;
                       await controller.evaluateJavascript(
                           source:
                               "document.onselectionchange = onSelectionChange; console.log('done');");
+                      if (!mounted) return;
                       await controller.evaluateJavascript(
                           source:
                               "document.getElementsByClassName('note-editable')[0].setAttribute('inputmode', '${widget.htmlEditorOptions.inputType.name}');");
+                      if (!mounted) return;
                       if ((Theme.of(context).brightness == Brightness.dark ||
                               widget.htmlEditorOptions.darkMode == true) &&
                           widget.htmlEditorOptions.darkMode != false) {
@@ -445,6 +452,7 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                             '<link href=\"${(widget.htmlEditorOptions.filePath != null ? "file:///android_asset/flutter_assets/packages/html_editor_plus/assets/" : "") + "summernote-lite-dark.css"}\" rel=\"stylesheet\">';
                         await controller.evaluateJavascript(
                             source: "\$('head').append('$darkCSS');");
+                        if (!mounted) return;
                       }
                       //set the text once the editor is loaded
                       if (widget.htmlEditorOptions.initialText != null) {
@@ -468,16 +476,7 @@ class _HtmlEditorWidgetMobileState extends State<HtmlEditorWidget> {
                         await controller.evaluateJavascript(
                             source:
                                 "var height = document.body.scrollHeight; window.flutter_inappwebview.callHandler('setHeight', height);");
-                      }
-                      //reset the editor's height if the keyboard disappears at any point
-                      if (widget.htmlEditorOptions.adjustHeightForKeyboard) {
-                        var keyboardVisibilityController = KeyboardVisibilityController();
-                        keyboardVisibilityController.onChange.listen((bool visible) {
-                          if (!visible && mounted) {
-                            controller.clearFocus();
-                            resetHeight();
-                          }
-                        });
+                        if (!mounted) return;
                       }
                       widget.controller.editorController!.addJavaScriptHandler(
                           handlerName: 'totalChars',
